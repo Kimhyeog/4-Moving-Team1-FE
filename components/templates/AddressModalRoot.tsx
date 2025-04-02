@@ -54,8 +54,8 @@ export default function AddressModalRoot({ closeModal }: AddressModalProps) {
 
       <div className="w-[95%] flex items-center gap-2">
         <InputSearchRightIcon
-          inputClassName="w-full"
-          inputBoxClassName="w-full"
+          // inputClassName="w-full"
+          // inputBoxClassName="w-full"
           name="address"
           control={control}
           placeholder="텍스트를 입력하세요"

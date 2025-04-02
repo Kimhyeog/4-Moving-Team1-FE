@@ -13,6 +13,7 @@ import Input from "../atoms/Input";
 interface Props extends React.ComponentProps<"input"> {
   label?: string;
   bgColor?: boolean;
+  onClickSearch: () => void;
   onClickClear: () => void;
 }
 
