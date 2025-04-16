@@ -1,14 +1,14 @@
-import React from 'react';
-import UserAvartar from '../atoms/UserAvartar';
-import LikeCount from '../molecules/LikeCount';
-import RatingSummary from '../molecules/RatingSummary';
+import React from "react";
+import UserAvartar from "../atoms/UserAvartar";
+import LikeCount from "../molecules/LikeCount";
+import RatingSummary from "../molecules/RatingSummary";
 
 type Props = {
   profileImage: string;
   nickname: string;
   isFavorite: boolean;
   favoritesCount: number;
-  experience: string;
+  experience: number;
   countCompleteMoving: number;
 };
 

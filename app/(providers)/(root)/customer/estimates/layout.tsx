@@ -1,0 +1,11 @@
+"use client";
+
+import { ReactNode } from "react";
+
+function Layout({ children }: { children: ReactNode }) {
+  // useAuthRedirect();
+
+  return <div>{children}</div>;
+}
+
+export default Layout;

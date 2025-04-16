@@ -1,7 +1,7 @@
-import { ServiceType } from '@/types/move.type';
-import ChipEstimateStatus from '../atoms/ChipEstimateStatus';
-import ChipMovingType from '../atoms/ChipMovingType';
-import DriverInfoBoxA from './DriverInfoBoxA';
+import { ServiceType } from "@/types/move.type";
+import ChipEstimateStatus from "../atoms/ChipEstimateStatus";
+import ChipMovingType from "../atoms/ChipMovingType";
+import DriverInfoBoxA from "./DriverInfoBoxA";
 
 type Props = {
   profileImage: string;
@@ -65,7 +65,7 @@ function DriverCardInEstimate({
         {services.map((service, index) => (
           <ChipMovingType key={index} type={service} />
         ))}
-        {isDirectEstimate ? <ChipEstimateStatus type="assigned" /> : ''}
+        {isDirectEstimate ? <ChipEstimateStatus type="assigned" /> : ""}
       </div>
       {/* 기사 한줄 소개 */}
       <div className="text-[14px] lg:text-2xl">{summary}</div>
