@@ -21,6 +21,7 @@ export const mockEstimates: Estimate[] = [
     departure: "서울 강남구",
     destination: "서울 송파구",
     requestDate: new Date("2025-04-10T15:00:00"),
+    departureAddress: "",
   },
   {
     id: "est2",
@@ -41,6 +42,7 @@ export const mockEstimates: Estimate[] = [
     departure: "경기도 성남시",
     destination: "서울 강서구",
     requestDate: new Date("2025-04-11T11:30:00"),
+    departureAddress: "",
   },
   {
     id: "est3",
@@ -62,6 +64,7 @@ export const mockEstimates: Estimate[] = [
     destination: "경기도 수원시",
     requestDate: new Date("2025-04-12T13:00:00"),
     rejectionMessage: "일정이 맞지 않아 진행이 어렵습니다.",
+    departureAddress: "",
   },
   {
     id: "est4",
@@ -82,6 +85,7 @@ export const mockEstimates: Estimate[] = [
     departure: "서울 마포구",
     destination: "서울 서대문구",
     requestDate: new Date("2025-04-10T16:45:00"),
+    departureAddress: "",
   },
   {
     id: "est5",
@@ -102,5 +106,6 @@ export const mockEstimates: Estimate[] = [
     departure: "인천 연수구",
     destination: "서울 관악구",
     requestDate: new Date("2025-04-11T14:20:00"),
+    departureAddress: "",
   },
 ];
