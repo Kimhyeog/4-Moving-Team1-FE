@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import React, { memo, useState, useEffect } from "react";
-import FullStar from "@/components/atoms/IconFullStar";
-import EmptyStar from "@/components/atoms/IconEmptyStar";
+import React, { memo, useState, useEffect } from 'react';
+import FullStar from '@/components/atoms/IconFullStar';
+import EmptyStar from '@/components/atoms/IconEmptyStar';
 
 type Props = {
   disabled?: boolean;
   initialRating: number;
   starSize?: number;
-  setRating?: (ratingValue: number) => void;
 };
 
 /**
@@ -43,7 +42,6 @@ function ButtonStarRating({
   disabled = false,
   initialRating,
   starSize = 20,
-  setRating,
 }: Props) {
   const ArrayIndexes = [1, 2, 3, 4, 5];
   const [ratingIndex, setRatingIndex] = useState(5);
@@ -57,7 +55,6 @@ function ButtonStarRating({
   const handleStarClick = (arrayindex: number) => {
     if (!disabled) {
       setRatingIndex(arrayindex);
-      if (setRating) setRating(arrayindex); // ✅ 클릭한 값 그대로 넘김
     }
   };
 
@@ -67,7 +64,7 @@ function ButtonStarRating({
         <div
           key={`rating_${index}`}
           className={`size-[${starSize}px] ${
-            disabled ? "cursor-default" : "cursor-pointer"
+            disabled ? 'cursor-default' : 'cursor-pointer'
           }`}
           onClick={() => handleStarClick(arrayindex)}
         >
