@@ -4,16 +4,40 @@ import { DriverWithMeta } from "@/types/move.type";
 import ButtonSolid from "../atoms/ButtonSolid";
 import { useState } from "react";
 import EstimateCardInModal from "./EstimateCardInModal";
+import { sendEstimatePrice } from "@/api/estimate/workerOnly/estimate.api";
 
 interface Props {
   onClose: () => void;
   driver: DriverWithMeta | null; // 리뷰를 남길 드라이버 정보
+  estimateId: string | null;
 }
 
 function EstimateSend(props: Props) {
-  const { onClose, driver } = props;
+  const { estimateId, driver, onClose } = props;
+
+  const [price, setPrice] = useState("");
   const [comment, setComment] = useState("");
+  const [isInvalid, setIsInvalid] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const handleSendEstimate = async () => {
+    if (!estimateId) return;
+
+    setLoading(true);
+    // 예시로 고정된 estimateId를 사용 (실제 사용시 적절한 값을 전달)
+    const numericPrice = Number(price);
+
+    try {
+      await sendEstimatePrice({ estimateId, price: numericPrice, comment });
+      alert("견적을 성공적으로 전송했습니다.");
+      onClose();
+    } catch (error) {
+      alert("견적 전송 실패: " + (error as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!driver) return <div>해당 기사가 없습니다.</div>;
 
   return (
@@ -74,10 +98,26 @@ function EstimateSend(props: Props) {
     /* 모바일 전용 */
     
     /* 태블릿 이상 */
+
     "
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          onBlur={() => {
+            const numericPrice = Number(price);
+            if (isNaN(numericPrice) || numericPrice <= 0) {
+              setIsInvalid(true);
+              setPrice("");
+              return;
+            }
+
+            setIsInvalid(false);
+          }}
         />
+        {isInvalid && (
+          <span className="text-red-500 text-sm">
+            유효한 견적가를 입력해주세요.
+          </span>
+        )}
       </div>
       <div>
         <hr className="border-t border-gray-100" />
@@ -96,7 +136,7 @@ function EstimateSend(props: Props) {
       >
         <h4>코멘트를 입력해 주세요.</h4>
         <textarea
-          name="detailReview"
+          name="comment"
           onChange={(e) => setComment(e.target.value)}
           placeholder="최소 10자 이상 입력해주세요."
           className="
@@ -124,10 +164,10 @@ function EstimateSend(props: Props) {
       "
       >
         <ButtonSolid
-          onClick={() => {}}
-          disabled={comment.trim() === "" || loading}
+          onClick={handleSendEstimate}
+          disabled={comment.trim() === "" || price.trim() === ""}
         >
-          {loading ? "보내는는 중..." : "견적 보내기"}
+          {loading ? "보내는 중..." : "견적 보내기"}
         </ButtonSolid>
       </div>
     </div>

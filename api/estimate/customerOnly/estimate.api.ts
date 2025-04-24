@@ -1,4 +1,4 @@
-// /api/estimates/workerOnly/estimate.api.ts
+// /api/estimates/customerOnly/estimate.api.ts
 
 import { client, errorHandler } from "@/api/client";
 import { Estimate } from "@/types/entities/estimate.entity";
