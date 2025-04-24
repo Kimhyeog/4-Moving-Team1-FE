@@ -38,17 +38,19 @@ const ResponsiveModal: React.FC<ResponsiveModalProps> = ({
             exit={{ opacity: 0, y: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className={`
-              fixed z-50 bg-white p-6
-              ${width} ${height}
-              bottom-0 left-0
-              sm:w-[400px] sm:top-1/2 sm:left-1/2 sm:bottom-auto
-              sm:translate-x-[-50%] sm:translate-y-[-50%]
-              sm:rounded-2xl sm:shadow-xl
-              rounded-t-3xl
-              xs:w-[327px] xs:bottom-0 xs:left-0 xs:translate-x-0 xs:translate-y-[-100%] xs:fixed
-            `}
+    fixed z-50 bg-white
+    ${width} ${height}
+    bottom-0 left-0
+    sm:top-1/2 sm:left-1/2 sm:bottom-auto
+    sm:translate-x-[-50%] sm:translate-y-[-50%]
+    sm:rounded-3xl sm:shadow-xl
+    rounded-t-3xl
+    xs:w-[327px] xs:bottom-0 xs:left-0 xs:translate-x-0 xs:translate-y-[-100%] xs:fixed
+
+    overflow-y-auto max-h-[90vh] max-w-full
+  `}
           >
-            {children}
+            <div className="p-6">{children}</div>
           </motion.div>
         </>
       )}
