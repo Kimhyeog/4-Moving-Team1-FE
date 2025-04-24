@@ -1,6 +1,5 @@
 "use client";
 
-import { DriverWithMeta } from "@/types/move.type";
 import ButtonSolid from "../atoms/ButtonSolid";
 import { useState } from "react";
 import EstimateCardInModal from "./EstimateCardInModal";
@@ -8,12 +7,11 @@ import { sendEstimatePrice } from "@/api/estimate/workerOnly/estimate.api";
 
 interface Props {
   onClose: () => void;
-  driver: DriverWithMeta | null; // 리뷰를 남길 드라이버 정보
   estimateId: string | null;
 }
 
 function EstimateSend(props: Props) {
-  const { estimateId, driver, onClose } = props;
+  const { estimateId, onClose } = props;
 
   const [price, setPrice] = useState("");
   const [comment, setComment] = useState("");
@@ -37,8 +35,6 @@ function EstimateSend(props: Props) {
       setLoading(false);
     }
   };
-
-  if (!driver) return <div>해당 기사가 없습니다.</div>;
 
   return (
     <div
