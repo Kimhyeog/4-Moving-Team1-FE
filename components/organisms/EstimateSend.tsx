@@ -79,7 +79,7 @@ function EstimateSend(props: Props) {
 
     /* 모바일 전용 */
     text-[16px] 
-    h
+    
     /* 태블릿 이상 */
     md:text-[20px]
     "
