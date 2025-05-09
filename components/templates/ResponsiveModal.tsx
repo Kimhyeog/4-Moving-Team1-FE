@@ -1,52 +1,70 @@
-//ResponsiveModal.tsx
-
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ResponsiveModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  width?: string; // width prop 추가
-  height?: string; // height prop 추가
+  width?: string; // Tailwind class string, e.g., "w-[500px]"
+  height?: string;
 }
 
 const ResponsiveModal: React.FC<ResponsiveModalProps> = ({
   isOpen,
   onClose,
   children,
-  width = "w-full", // 기본값은 w-full
-  height = "h-auto", // 기본값은 h-auto
+  width = "w-full",
+  height = "h-auto",
 }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const [isFullWidth, setIsFullWidth] = useState(true); // true면 bottom 모달
+
+  useEffect(() => {
+    const updatePosition = () => {
+      if (!modalRef.current) return;
+
+      const modalWidth = modalRef.current.offsetWidth;
+      const windowWidth = window.innerWidth;
+
+      // modalWidth가 windowWidth보다 커지면 bottom sheet 스타일
+      setIsFullWidth(modalWidth >= windowWidth);
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [width]);
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* sm일때, 아래에서 위 적용 */}
           <div
             onClick={onClose}
             className="fixed inset-0 z-40 bg-gray-300/30 backdrop-blur-[1px] transition-all duration-300"
           />
-
-          {/* mobile에서 w-[327px] 이하일 때 아래에서 위 적용, 그 외는 일반 모달 */}
           <motion.div
             key="modal"
             initial={{ opacity: 0, y: "100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            ref={modalRef}
             className={`
               fixed z-50 bg-white p-6
-              ${width} ${height}
-              bottom-0 left-0
-              rounded-2xl
-              sm:w-[400px] sm:top-1/2 sm:left-1/2 sm:bottom-auto
-              sm:translate-x-[-50%] sm:translate-y-[-50%]
-              sm:rounded-2xl sm:shadow-xl
-              rounded-t-3xl
-              xs:w-[327px] xs:bottom-0 xs:left-0 xs:translate-x-0 xs:translate-y-[-100%] xs:fixed
+              ${height}
+              ${width}
+              ${
+                isFullWidth
+                  ? // 👇 바닥 모달 (화면 너비보다 모달이 크거나 같을 때)
+                    "bottom-0 left-0 w-full rounded-t-3xl"
+                  : // 👇 중앙 모달 (모달이 더 작을 때)
+                    "top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] rounded-2xl shadow-xl"
+              }
             `}
           >
             {children}
